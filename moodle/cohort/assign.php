@@ -98,6 +98,7 @@ if (optional_param('remove', false, PARAM_BOOL) && confirm_sesskey()) {
 
 // Print the form.
 ?>
+
 <form id="assignform" method="post" action="<?php echo $PAGE->url ?>"><div>
   <input type="hidden" name="sesskey" value="<?php echo sesskey() ?>" />
 
@@ -109,11 +110,10 @@ if (optional_param('remove', false, PARAM_BOOL) && confirm_sesskey()) {
       </td>
       <td id="buttonscell">
           <div id="addcontrols">
-              <input name="add" id="add" type="submit" value="<?php echo $OUTPUT->larrow().'&nbsp;'.s(get_string('add')); ?>" title="<?php p(get_string('add')); ?>" /><br />
+              <input name="add" id="add" type="submit" value="<?php echo $OUTPUT->larrow(); ?>" title="<?php p(get_string('add')); ?>" /><br />
           </div>
-
-          <div id="removecontrols">
-              <input name="remove" id="remove" type="submit" value="<?php echo s(get_string('remove')).'&nbsp;'.$OUTPUT->rarrow(); ?>" title="<?php p(get_string('remove')); ?>" />
+			 <div id="removecontrols">
+              <input name="remove" id="remove" type="submit" value="<?php echo $OUTPUT->rarrow(); ?>" title="<?php p(get_string('remove')); ?>" onclick="return confi('Czy na pewno chcesz usunąć zaznaczonych użytkowników?\n\nUsunięcie użytkowników z kohorty może powodować wypisanie studentów z wielu kursów, obejmując usunięcie ustawień użytkownika, ocen, przynależności do grup oraz innych ustawień.');" />
           </div>
       </td>
       <td id="potentialcell">

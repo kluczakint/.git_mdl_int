@@ -191,15 +191,15 @@ class scorm_interactions_report extends scorm_default_report {
             for($id = 0; $id < $questioncount; $id++) {
                 if ($displayoptions['qtext']) {
                     $columns[] = 'question' . $id;
-                    $headers[] = get_string('questionx', 'scormreport_interactions', $id);
+                    $headers[] = get_string('questionx', 'scormreport_interactions', $id+1);
                 }
                 if ($displayoptions['resp']) {
                     $columns[] = 'response' . $id;
-                    $headers[] = get_string('responsex', 'scormreport_interactions', $id);
+                    $headers[] = get_string('responsex', 'scormreport_interactions', $id+1);
                 }
                 if ($displayoptions['right']) {
                     $columns[] = 'right' . $id;
-                    $headers[] = get_string('rightanswerx', 'scormreport_interactions', $id);
+                    $headers[] = get_string('rightanswerx', 'scormreport_interactions', $id+1);
                 }
             }
 
@@ -483,16 +483,23 @@ class scorm_interactions_report extends scorm_default_report {
                                 for ($i=0; $i < $questioncount; $i++) {
                                     if ($displayoptions['qtext']) {
                                         $element='cmi.interactions_'.$i.'.id';
+					 								 $element2004='cmi.interactions.'.$i.'.id';
+													 
                                         if (isset($trackdata->$element)) {
                                             $row[] = s($trackdata->$element);
+                                        } elseif (isset($trackdata->$element2004)) {
+                                            $row[] = s($trackdata->$element2004);
                                         } else {
                                             $row[] = '&nbsp;';
                                         }
                                     }
                                     if ($displayoptions['resp']) {
                                         $element='cmi.interactions_'.$i.'.student_response';
+													 $element2004='cmi.interactions.'.$i.'.learner_response';
                                         if (isset($trackdata->$element)) {
                                             $row[] = s($trackdata->$element);
+                                        } elseif (isset($trackdata->$element2004)) {
+                                            $row[] = s($trackdata->$element2004);
                                         } else {
                                             $row[] = '&nbsp;';
                                         }
@@ -500,7 +507,8 @@ class scorm_interactions_report extends scorm_default_report {
                                     if ($displayoptions['right']) {
                                         $j=0;
                                         $element = 'cmi.interactions_'.$i.'.correct_responses_'.$j.'.pattern';
-                                        $rightans = '';
+                                        $element2004 = 'cmi.interactions.'.$i.'.correct_responses.'.$j.'.pattern';
+													 $rightans = '';
                                         if (isset($trackdata->$element)) {
                                             while(isset($trackdata->$element)) {
                                                 if($j>0) {
@@ -509,6 +517,16 @@ class scorm_interactions_report extends scorm_default_report {
                                                 $rightans .= s($trackdata->$element);
                                                 $j++;
                                                 $element = 'cmi.interactions_'.$i.'.correct_responses_'.$j.'.pattern';
+                                            }
+                                            $row[] = $rightans;
+                                        } elseif (isset($trackdata->$element2004)) {
+                                            while(isset($trackdata->$element2004)) {
+                                                if($j>0) {
+                                                    $rightans .= ',';
+                                                }
+                                                $rightans .= s($trackdata->$element2004);
+                                                $j++;
+                                                $element2004 = 'cmi.interactions.'.$i.'.correct_responses.'.$j.'.pattern';
                                             }
                                             $row[] = $rightans;
                                         } else {

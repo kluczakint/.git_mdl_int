@@ -49,5 +49,5 @@ $completion=new completion_info($course);
 $completion->set_module_viewed($cm);
 
 // Get the assign class to
-// render the page.
+// render the page.//
 echo $assign->view(optional_param('action', '', PARAM_TEXT));

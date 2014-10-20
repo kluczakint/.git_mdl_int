@@ -726,7 +726,7 @@ class mod_quiz_renderer extends plugin_renderer_base {
 
         }
 
-        if ($viewobj->showbacktocourse) {
+        if (1) {
             $output .= $this->single_button($viewobj->backtocourseurl,
                     get_string('backtocourse', 'quiz'), 'get',
                     array('class' => 'continuebutton'));
@@ -1079,12 +1079,12 @@ class mod_quiz_renderer extends plugin_renderer_base {
             $resultinfo .= html_writer::div($viewobj->gradebookfeedback, 'quizteacherfeedback') . "\n";
         }
         if ($viewobj->feedbackcolumn) {
-            $resultinfo .= $this->heading(get_string('overallfeedback', 'quiz'), 3);
-            $resultinfo .= html_writer::div(
-                    quiz_feedback_for_grade($viewobj->mygrade, $quiz, $context),
-                    'quizgradefeedback') . "\n";
+           // $resultinfo .= $this->heading(get_string('overallfeedback', 'quiz'), 3);
+           // $resultinfo .= html_writer::div(
+            //        quiz_feedback_for_grade($viewobj->mygrade, $quiz, $context),
+             //       'quizgradefeedback') . "\n";
         }
-
+		 
         if ($resultinfo) {
             $output .= $this->box($resultinfo, 'generalbox', 'feedback');
         }

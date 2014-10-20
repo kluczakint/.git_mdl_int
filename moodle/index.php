@@ -199,6 +199,18 @@
                     }
 
                     forum_print_latest_discussions($SITE, $newsforum, $SITE->newsitems, 'plain', 'p.modified DESC');
+							
+					/* RSS */  
+        			if (!function_exists('rss_get_url')) {
+		            require_once("$CFG->libdir/rsslib.php");
+		        	}
+					 $pixx= '<img src="'.$OUTPUT->pix_url('i/rss', '').'" alt="RSS " class="icon">';
+			       $url = new moodle_url(rss_get_url(31, 1, "mod_forum", 2));
+					 $string = get_string('rsssubscriberssposts','forum');
+			        echo '<a href="'.$url.'" style="float: right;">'.$pixx.$string.'</a>';
+						//	$forumnode->add($string, $url, settings_navigation::TYPE_SETTING, null, null, new pix_icon('i/rss', ''));
+   				 /* RSS END */
+							
 
                     //end site news forum div container
                     echo html_writer::end_tag('div');

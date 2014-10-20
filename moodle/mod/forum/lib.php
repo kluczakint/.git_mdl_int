@@ -3561,6 +3561,7 @@ function forum_print_post($post, $discussion, $forum, &$cm, $course, $ownpost=fa
     $output .= html_writer::tag('div', implode(' | ', $commandhtml), array('class'=>'commands'));
 
     // Output link to post if required
+	 $link = null;
     if ($link) {
         if ($post->replies == 1) {
             $replystring = get_string('repliesone', 'forum', $post->replies);
@@ -7768,6 +7769,7 @@ function forum_extend_settings_navigation(settings_navigation $settingsnav, navi
             $string = get_string('rsssubscriberssposts','forum');
         }
 
+		
         $url = new moodle_url(rss_get_url($PAGE->cm->context->id, $userid, "mod_forum", $forumobject->id));
         $forumnode->add($string, $url, settings_navigation::TYPE_SETTING, null, null, new pix_icon('i/rss', ''));
     }
@@ -8498,8 +8500,6 @@ function forum_set_user_maildigest($forum, $maildigest, $user = null) {
             $subscription->id = $DB->insert_record('forum_digests', $subscription);
         }
     }
-
-    return true;
 }
 
 /**

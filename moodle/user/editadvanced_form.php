@@ -90,6 +90,17 @@ class user_editadvanced_form extends moodleform {
         }
 
         $this->add_action_buttons(false, $btnstring);
+			
+		/*  $htmlsave = '</fieldset><fieldset><div id="fitem_id_submitbutton" class="fitem fitem_actionbuttons fitem_fsubmit"><div class="felement fsubmit" id="yui_3_13_0_3_1411634429458_448">
+			<input name="submitbutton" value="Zmień profil" type="submit" id="id_submitbutton">
+			</form>
+			<form action="'.$CFG->wwwroot.'/user/profile.php?id='.$USER->id.'" method="get">
+				<input type="submit" value="Anuluj">
+			</form>
+			</div></div>';	
+			
+			 $mform->addElement('html', $htmlsave); */
+			
     }
 
     function definition_after_data() {
@@ -167,9 +178,11 @@ class user_editadvanced_form extends moodleform {
                 $mform->removeElement('deletepicture');
             }
         }
-
+		
         /// Next the customisable profile fields
         profile_definition_after_data($mform, $userid);
+			
+		  
     }
 
     function validation($usernew, $files) {

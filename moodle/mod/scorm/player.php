@@ -66,6 +66,8 @@ if (!empty($id)) {
 // If new attempt is being triggered set normal mode and increment attempt number.
 $attempt = scorm_get_last_attempt($scorm->id, $USER->id);
 
+//print_r($attempt);
+
 // Check mode is correct and set mode/attempt (uses pass by reference).
 scorm_check_mode($scorm, $newattempt, $attempt, $USER->id, $mode);
 
@@ -108,11 +110,13 @@ if ($displaymode == 'popup') {
     $pagetitle = strip_tags("$shortname: ".format_string($scorm->name));
     $PAGE->set_title($pagetitle);
     $PAGE->set_heading($course->fullname);
+	 $PAGE->set_pagelayout('scorm');
 }
 if (!$cm->visible and !has_capability('moodle/course:viewhiddenactivities', $coursecontext)) {
     echo $OUTPUT->header();
     notice(get_string("activityiscurrentlyhidden"));
     echo $OUTPUT->footer();
+	 
     die;
 }
 
@@ -222,7 +226,8 @@ if ($scorm->hidetoc == SCORM_TOC_POPUP or $mode=='browse' or $mode=='review') {
         </div> <!--  tocbox -->
                 <noscript>
                     <div id="noscript">
-                        <?php print_string('noscriptnoscorm', 'scorm'); // No Martin(i), No Party ;-) ?>
+                        <?php print_string('noscriptnoscorm', 'scorm'); // No Martin(i), No Party ;-)
+								 ?>
 
                     </div>
                 </noscript>
@@ -238,9 +243,7 @@ if ($result->prerequisites) {
         echo html_writer::script('', $CFG->wwwroot.'/mod/scorm/player.js');
         $url = new moodle_url($PAGE->url, array('scoid' => $sco->id, 'display' => 'popup', 'mode' => $mode));
         echo html_writer::script(
-            js_writer::function_call('scorm_openpopup', Array($url->out(false),
-                                                       $name, $scorm->options,
-                                                       $scorm->width, $scorm->height)));
+            js_writer::function_call('scorm_openpopup', Array($url->out(false),$name, $scorm->options,$scorm->width, $scorm->height)));
         ?>
             <noscript>
                 <iframe id="main" class="scoframe" name="main" src="loadSCO.php?id=<?php echo $cm->id.$scoidstr.$modestr; ?>"></iframe>
